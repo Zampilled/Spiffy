@@ -9,6 +9,7 @@ export default function Home() {
     const [list, setList] = useState([]);
 
     const getMySongs = async () => {
+
         const res = await fetch('/api/songs');
         const {items} = await res.json();
         setList(items);
@@ -17,14 +18,14 @@ export default function Home() {
     if (session) {
         return (
             <Container>
-                <Box align="center">
-                    <Heading as="h1" mt={10} textAlign="center" size={"4xl"}>Spotify</Heading>
-                    <Box alignContent="center" mt={6}>
-                        <Button onClick={() => signOut()}>Sign out</Button>
+                <Box align="center" borderWidth={"5px"} borderColor={"pink"} borderRadius={"lg"} mb={"2"}>
+                    <Heading as="h1" mt={10} textAlign="center" size={"4xl"} color={"pink.300"}>Spotify</Heading>
+                    <Box alignContent="center" mt={6} mb={"2"}>
+                        <Button variant={"ghost"} color={"pink"} onClick={() => signOut()}>Sign out</Button>
                     </Box>
                 </Box>
-                <Box>
-                    <Button onClick={() => getMySongs()}>Get Songs</Button>
+                <Box align={"center"}>
+                    <Button mt={2} mb={2} align={"center"} bgColor={"pink"} onClick={() => getMySongs()}>Get Songs</Button>
                     <TableContainer >
                         <Table variant={"striped"} colorScheme={"pink"}>
                             <Thead>
