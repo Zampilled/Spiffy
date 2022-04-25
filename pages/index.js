@@ -8,13 +8,24 @@ export default function Home() {
     const {data: session} = useSession();
     const [list, setList] = useState([]);
 
-    const getMySongs = async () => {
+    const getMySongsShort = async () => {
 
-        const res = await fetch('/api/songs');
+        const res = await fetch('/api/shortsongs');
+        const {items} = await res.json();
+
+        setList(items);
+    };
+    const getMySongsMed = async () => {
+        const res = await fetch('/api/medsongs');
         const {items} = await res.json();
         setList(items);
     };
-    console.log(list)
+    const getMySongsLong = async () => {
+        const res = await fetch('/api/longsongs');
+        const {items} = await res.json();
+        setList(items);
+    };
+
     if (session) {
         return (
             <Container>
@@ -25,7 +36,9 @@ export default function Home() {
                     </Box>
                 </Box>
                 <Box align={"center"}>
-                    <Button mt={2} mb={2} align={"center"} bgColor={"pink"} onClick={() => getMySongs()}>Get Songs</Button>
+                    <Button mt={2} mb={2} align={"center"} bgColor={"pink"} onClick={() => getMySongsShort()}>Short</Button>
+                    <Button mt={2} mb={2} m={2} align={"center"} bgColor={"pink"} onClick={() => getMySongsMed()}>Med</Button>
+                    <Button mt={2} mb={2} align={"center"} bgColor={"pink"} onClick={() => getMySongsLong()}>Long</Button>
                     <TableContainer >
                         <Table variant={"striped"} colorScheme={"pink"}>
                             <Thead>

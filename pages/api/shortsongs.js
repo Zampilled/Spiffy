@@ -1,13 +1,12 @@
-import {getUsersSongs} from '../../lib/spotify';
+import {getUsersSongsShort} from '../../lib/shortspotify';
 import {getSession} from 'next-auth/react';
 
 const handler = async (req, res) => {
     const {
         token: {accessToken},
     } = await getSession({req});
-    const response = await getUsersSongs(accessToken);
+    const response = await getUsersSongsShort(accessToken);
     const {items} = await response.json();
-
     return res.status(200).json({items});
 };
 
