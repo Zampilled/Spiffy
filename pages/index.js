@@ -155,7 +155,7 @@ export default function Home() {
 
                 <Box alignContent="center" mt={6} mb={"2"}>
                     <ThemeToggleButton/>
-                    <Button variant={"ghost"} color={color}  onClick={() => signIn()}>Sign in</Button>
+                    <Button ml={2} variant={"outline"} color={color}  onClick={() => signIn()}>Sign in</Button>
                 </Box>
             </Box>
 
