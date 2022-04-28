@@ -16,7 +16,17 @@ import {
     Thead,
     Tr,
     useColorModeValue,
-    Flex, Spacer, SimpleGrid, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Link, Tabs
+    Flex,
+    Spacer,
+    SimpleGrid,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
+    Link,
+    Tabs,
+    Spinner
 } from "@chakra-ui/react";
 import {useSession, signIn, signOut} from 'next-auth/react';
 import {useState} from 'react';
@@ -26,52 +36,70 @@ import {ExternalLinkIcon} from "@chakra-ui/icons";
 import {animationControls, motion} from "framer-motion";
 
 export default function Home() {
+
     const {data: session} = useSession();
     const [list, setList] = useState([]);
+    const [sdis,setSdis] = useState(false)
+    const [mdis,setMdis] = useState(false)
+    const [ldis, setLdis] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const getMySongsShort = async () => {
-        const res = await fetch('/api/shortsongs');
         setList([])
+        setLoading(true)
+        setSdis(true)
+        setMdis(false)
+        setLdis(false)
+        const res = await fetch('/api/shortsongs');
         const {items} = await res.json();
-
+        setLoading(false)
         setList(items);
     };
     const getMySongsMed = async () => {
-        const res = await fetch('/api/medsongs');
         setList([])
+        setLoading(true)
+        setSdis(false)
+        setMdis(true)
+        setLdis(false)
+        const res = await fetch('/api/medsongs');
         const {items}=await res.json();
-
+        setLoading(false)
         setList(items);
     };
     const getMySongsLong = async () => {
-        const res = await fetch('/api/longsongs');
         setList([])
+        setLoading(true)
+        setSdis(false)
+        setMdis(false)
+        setLdis(true)
+        const res = await fetch('/api/longsongs');
         const {items} = await res.json();
-
+        setLoading(false)
         setList(items);
     };
-    const color = useColorModeValue('#cc8b86', '#725AC1')
+    const color = useColorModeValue('#black', '#white')
     console.log(list)
     if (session) {
         return (
-            <Container align="center">
+
+            <Container align="center" mt={2}>
                 <Box align="center" borderWidth={"5px"} borderColor={color} borderRadius={"lg"} mb={"2"}>
 
-                    <Heading as="h1" mt={10} textAlign="center" size={"4xl"} color={color}>Spiffy</Heading>
+                    <Heading as="h1" mt={0} textAlign="center" size={"4xl"} color={color}>SPIFFY</Heading>
+                    <Text mt={1} fontSize={"lg"}>Top Songs On Demand</Text>
                     <Box alignContent="center" mt={6} mb={"2"}>
                         <ThemeToggleButton/>
-                        <Button variant={"ghost"} color={color} onClick={() => signOut()}>Sign out</Button>
+                        <Button variant={"outline"} ml={2} color={color} onClick={() => signOut()}>Sign out</Button>
+                    </Box>
+                    <Text color={color} fontSize={"2xl"}>Select Length of Time:</Text>
+                    <Box align={"center"}>
+                    <Button mt={2} mb={2} align={"center"} isDisabled={sdis} bgColor={color} onClick={() => getMySongsShort()}>2 Month</Button>
+                    <Button mt={2} mb={2} m={2} align={"center"} isDisabled={mdis} bgColor={color} onClick={() => getMySongsMed()}>6 Month</Button>
+                    <Button mt={2} mb={2} align={"center"} isDisabled={ldis} bgColor={color} onClick={() => getMySongsLong()}>All Time</Button>
                     </Box>
                 </Box>
-
-                <Box align={"center"}>
-                    <Button mt={2} mb={2} align={"center"} bgColor={color} onClick={() => getMySongsShort()}>Short</Button>
-                    <Button mt={2} mb={2} m={2} align={"center"} bgColor={color} onClick={() => getMySongsMed()}>Med</Button>
-                    <Button mt={2} mb={2} align={"center"} bgColor={color} onClick={() => getMySongsLong()}>Long</Button>
-
-
-                </Box>
                 <Box>
+                    {loading? <Box mt={4} align={"center"}><Spinner size={"xl"} /></Box>:
                     <Accordion allowToggle >
                     {list.map((item, index) =>(
 
@@ -111,6 +139,7 @@ export default function Home() {
                         )
                     )}
                     </Accordion>
+                    }
                 </Box>
 
             </Container>
@@ -118,13 +147,18 @@ export default function Home() {
         );
     }
     return (
-        <Container>
-            <Box align="center">
-                <Heading as="h1" mt={10} textAlign="center" color={color} size={"4xl"}>Spotify</Heading>
-                <Box alignContent="center" mt={6}>
-                    <Button onClick={() => signIn()}>Sign in</Button>
+        <Container mt={2}>
+            <Box align="center" borderWidth={"5px"} borderColor={color} borderRadius={"lg"} mb={"2"}>
+
+                <Heading as="h1" mt={10} textAlign="center" size={"4xl"} color={color}>SPIFFY</Heading>
+                <Text mt={1} fontSize={"lg"}>Top Songs On Demand</Text>
+
+                <Box alignContent="center" mt={6} mb={"2"}>
+                    <ThemeToggleButton/>
+                    <Button variant={"ghost"} color={color}  onClick={() => signIn()}>Sign in</Button>
                 </Box>
             </Box>
+
         </Container>
 
     );
