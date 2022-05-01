@@ -93,7 +93,7 @@ export default function Home() {
                     </Box>
                     <Text color={color} fontSize={"2xl"}>Select Length of Time:</Text>
                     <Box align={"center"}>
-                    <Button mt={2} mb={2} align={"center"} isDisabled={sdis} bgColor={color} onClick={() => getMySongsShort()}>2 Month</Button>
+                    <Button mt={2} mb={2} align={"center"} isDisabled={sdis} bgColor={color} onClick={() => getMySongsShort()}>1 Month</Button>
                     <Button mt={2} mb={2} m={2} align={"center"} isDisabled={mdis} bgColor={color} onClick={() => getMySongsMed()}>6 Month</Button>
                     <Button mt={2} mb={2} align={"center"} isDisabled={ldis} bgColor={color} onClick={() => getMySongsLong()}>All Time</Button>
                     </Box>
