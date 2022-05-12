@@ -111,7 +111,7 @@ export default function Home() {
                             <Flex alignItems={"center"} >
                                 <AccordionButton>
                                 <Text fontSize={"3xl"} ml={3} fontWeight={"bold"} >{index<9?0:""}{index+1}</Text>
-                                <Image borderRadius={"lg"} src={item.album.images[0].url} ml={3} layout={"fill"} height={"60px"}/>
+                                <Image src={item.album.images[0].url} ml={3} layout={"fill"} height={"60px"}/>
                                 <SimpleGrid columns={2} width={"100%"} textAlign={"start"}>
                                     <Text isTruncated fontSize={"xl"} ml={2}  fontWeight={"bold"}>{item.artists[0].name}</Text>
                                     <Text isTruncated fontSize={"xl"} >{item.name}</Text>
